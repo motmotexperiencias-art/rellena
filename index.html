@@ -14,142 +14,141 @@
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #FAFAFA;
-            color: #111111;
-            padding-bottom: 180px; /* Espacio extra para el footer grande */
+            background-color: #ffffff; /* BLANCO PURO */
+            color: #1a1a1a;
+            padding-bottom: 200px;
         }
 
-        /* PALETA FAST FOOD */
+        /* COLORES DE MARCA */
         :root {
-            --hunger-yellow: #FFC300; /* Amarillo Queso/Mostaza */
-            --hunger-red: #D32F2F;    /* Rojo Salsa/Urgencia */
-            --hunger-black: #111111;
+            --brand-yellow: #FFC300; 
+            --brand-red: #D32F2F;    
+            --brand-black: #111111;
         }
 
-        .text-yellow-brand { color: var(--hunger-yellow); }
-        .text-red-brand { color: var(--hunger-red); }
-        .bg-red-brand { background-color: var(--hunger-red); }
+        .text-yellow-brand { color: var(--brand-yellow); }
+        .text-red-brand { color: var(--brand-red); }
+        .bg-red-brand { background-color: var(--brand-red); }
 
-        /* Títulos */
-        .section-title {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 20px;
-            z-index: 1;
+        /* HEADER */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
         }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 2px;
-            left: 0;
-            width: 100%;
-            height: 10px;
-            background-color: var(--hunger-yellow);
-            z-index: -1;
-            opacity: 0.5;
-            transform: skewX(-10deg);
+
+        /* TARJETAS DE INGREDIENTES */
+        .card-ingredient {
+            background-color: #ffffff; /* Blanco */
+            border: 1px solid #e5e7eb; /* Gris muy suave */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .card-ingredient:hover {
+            border-color: #d1d5db;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-ingredient.selected {
+            background-color: #fffbeb; /* Amarillo muy suave casi blanco */
+            border: 2px solid var(--brand-black);
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0px var(--brand-black); /* Efecto Pop Art */
         }
         
-        /* TARJETAS */
-        .card-ingredient {
-            background-color: #ffffff;
-            border: 2px solid #E5E7EB;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Estado Seleccionado */
-        .card-ingredient.selected {
-            background-color: #FFF9C4;
-            border-color: var(--hunger-black);
-            box-shadow: 4px 4px 0px var(--hunger-black);
-            transform: translate(-2px, -2px);
-        }
         .card-ingredient.selected .check-indicator {
-            background-color: var(--hunger-red); /* Check Rojo */
+            background-color: var(--brand-red);
             color: white;
-            border-color: var(--hunger-red);
+            border-color: var(--brand-red);
         }
 
-        /* Check Indicator Base */
         .check-indicator {
-            background-color: #F3F4F6;
+            background-color: #f3f4f6;
             color: transparent;
-            border: 1px solid #D1D5DB;
+            border: 1px solid #d1d5db;
         }
 
         /* INPUTS */
         .input-light {
             background-color: #ffffff;
-            border: 2px solid #E5E7EB;
-            color: #111;
+            border: 2px solid #e5e7eb;
             transition: all 0.2s;
+            color: #000;
         }
         .input-light:focus {
-            border-color: var(--hunger-red); /* Foco Rojo */
+            background-color: #ffffff;
+            border-color: var(--brand-red);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+            box-shadow: 0 0 0 4px rgba(211, 47, 47, 0.05);
         }
 
         /* BOTONES */
-        .btn-add {
-            background-color: #111;
-            color: var(--hunger-yellow);
-            border: none;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        .btn-add-next {
+            background-color: var(--brand-black);
+            color: var(--brand-yellow);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.1s;
         }
         
-        .btn-order {
+        .btn-finish {
             background: linear-gradient(135deg, #D32F2F, #B71C1C);
             color: white;
-            border: none;
-            box-shadow: 0 8px 20px rgba(211, 47, 47, 0.3);
+            box-shadow: 0 8px 25px rgba(211, 47, 47, 0.3);
         }
-        .btn-order:active {
-            transform: scale(0.98);
-        }
-
-        /* SALSAS (Botones) */
-        .btn-salsa.selected {
-            background-color: var(--hunger-red);
-            color: white;
-            border-color: var(--hunger-red);
-        }
+        .btn:active { transform: scale(0.98); }
 
         /* MEDIOS DE PAGO */
         .payment-option {
-            border: 2px solid #E5E7EB;
+            border: 1px solid #e5e7eb;
+            background-color: #ffffff;
             transition: all 0.2s;
         }
         .payment-option.selected {
-            border-color: var(--hunger-red);
-            background-color: #FEF2F2;
-            color: var(--hunger-red);
-            font-weight: bold;
+            border-color: var(--brand-red);
+            background-color: #fef2f2; /* Rojo muy pálido */
+            color: var(--brand-red);
+            font-weight: 800;
+            box-shadow: 0 0 0 1px var(--brand-red);
+        }
+
+        /* ANIMACIONES */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-down {
+            animation: slideDown 0.3s ease-out;
+        }
+
+        /* Resumen Flotante */
+        .cart-summary-item {
+            background-color: #f9fafb; /* Gris casi blanco */
+            border: 1px solid #f3f4f6;
+            border-left: 4px solid var(--brand-red);
         }
         
-        /* CARRITO */
-        .cart-item {
-            border-left: 4px solid var(--hunger-red);
+        /* Footer */
+        footer {
+            background-color: #ffffff;
+            border-top: 1px solid #f3f4f6;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Fijo -->
-    <header class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 p-4 shadow-sm">
+    <!-- Header Sticky -->
+    <header class="fixed top-0 w-full z-50 border-b border-gray-100 p-4 shadow-sm">
         <div class="flex justify-between items-center max-w-md mx-auto">
-            <!-- Logo y Ubicación -->
             <div class="flex flex-col leading-none">
                 <h1 class="text-3xl font-black italic tracking-tighter text-black">
                     Re<span class="text-yellow-brand">Llenas</span>
                 </h1>
                 <div class="flex items-center gap-1 mt-1">
                     <i data-lucide="map-pin" class="w-3 h-3 text-red-brand"></i>
-                    <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Barichara · Parque</span>
+                    <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Barichara</span>
                 </div>
             </div>
-            <!-- Precio -->
             <div class="text-right">
                 <div class="bg-red-brand text-white text-[10px] font-bold px-2 py-0.5 rounded-sm inline-block mb-1 transform -rotate-2">PRECIO ÚNICO</div>
                 <div class="text-2xl font-black text-black leading-none">$5.000</div>
@@ -159,120 +158,126 @@
 
     <!-- Main Content -->
     <main class="max-w-md mx-auto pt-28 px-4">
-        
+
         <!-- Info Domicilio -->
-        <section class="mb-4 bg-yellow-50 p-4 rounded-xl border border-yellow-200">
+        <section class="mb-6 bg-yellow-50 p-4 rounded-xl border border-yellow-200">
             <div class="flex items-start gap-3">
-                <div class="bg-yellow-400 p-2 rounded-full text-black">
+                <div class="bg-yellow-400 p-2 rounded-full text-black shadow-sm">
                     <i data-lucide="bike" class="w-5 h-5"></i>
                 </div>
                 <div>
                     <h3 class="text-sm font-bold text-black uppercase">Domicilio: $4.000</h3>
                     <p class="text-xs text-gray-600 leading-tight mt-1">
-                        Tarifa válida para casco urbano Barichara. 
-                        <span class="text-red-brand font-bold block mt-1">⚠ Veredas tienen costo adicional.</span>
+                        Tarifa única por todo el pedido (Casco urbano).
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- Formulario Datos (Solo se llena una vez) -->
-        <section class="mb-6">
-            <div class="grid gap-3">
-                <input type="text" id="clientName" placeholder="¿Cómo te llamas?" class="input-light w-full rounded-lg p-3 placeholder-gray-400 font-semibold">
-                <input type="text" id="clientAddress" placeholder="Dirección / Barrio / Hotel" class="input-light w-full rounded-lg p-3 placeholder-gray-400 font-semibold">
+        <!-- Formulario Datos -->
+        <section class="mb-8">
+            <div class="grid gap-4">
+                <div>
+                    <label class="text-xs font-bold text-gray-500 uppercase ml-1 mb-1 block">Tu Nombre</label>
+                    <input type="text" id="clientName" placeholder="Ej: Juan Pérez" class="input-light w-full rounded-lg p-3 font-bold text-black">
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-gray-500 uppercase ml-1 mb-1 block">Dirección de Entrega</label>
+                    <input type="text" id="clientAddress" placeholder="Ej: Barrio La Loma, Casa 4" class="input-light w-full rounded-lg p-3 font-bold text-black">
+                </div>
             </div>
         </section>
 
-        <!-- AVISO DE CANTIDAD -->
-        <section class="mb-8 bg-black p-4 rounded-xl shadow-lg border-l-4 border-yellow-400">
-            <div class="flex items-center gap-2 mb-1">
-                <i data-lucide="pie-chart" class="text-yellow-400 w-5 h-5"></i>
-                <h3 class="text-white font-bold text-sm uppercase">Sobre el Relleno</h3>
+        <!-- ZONA DE CANASTA (Aparece al agregar) -->
+        <section id="mini-cart" class="hidden mb-8 animate-slide-down">
+            <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+                <i data-lucide="shopping-bag" class="w-4 h-4 text-red-600"></i> Tu Pedido Actual:
+            </h3>
+            <div id="mini-cart-items" class="space-y-3">
+                <!-- Items agregados aquí -->
             </div>
-            <p class="text-gray-300 text-xs leading-relaxed">
-                La empanada tiene un tamaño fijo. Si pides muchos ingredientes, la cantidad total <strong>se divide equitativamente</strong> entre todos.
-                <br>
-                <em class="text-gray-400 mt-1 block">¡Tú decides la mezcla!</em>
+        </section>
+
+        <!-- Aviso Relleno -->
+        <div class="bg-white border border-gray-200 p-3 rounded-lg mb-6 text-center shadow-sm">
+            <p class="text-xs text-gray-500 font-medium">
+                <i data-lucide="info" class="w-3 h-3 inline mr-1 text-yellow-500"></i>
+                El relleno se divide equitativamente entre los ingredientes.
             </p>
-        </section>
+        </div>
 
-        <!-- ZONA DE ARMADO -->
-        <div id="builder-zone" class="transition-all duration-300">
-            <div class="flex items-center justify-between mb-4">
-                <h2 class="text-xl font-black text-red-700 uppercase border-b-2 border-red-700 inline-block">Armando Empanada #<span id="empanada-counter">1</span></h2>
-                <button onclick="resetBuilder()" class="text-xs text-gray-400 underline">Borrar selección</button>
+        <!-- CONSTRUCTOR DE EMPANADA -->
+        <div id="builder-zone" class="bg-white rounded-xl">
+            
+            <!-- Título Dinámico -->
+            <div class="flex items-center justify-between mb-6 sticky top-[85px] z-40 bg-white/95 backdrop-blur py-4 border-b border-gray-100">
+                <h2 class="text-lg font-black text-red-700 uppercase flex items-center gap-2">
+                    <span class="bg-red-700 text-white w-7 h-7 flex items-center justify-center rounded-full text-sm shadow-md" id="empanada-number">1</span>
+                    Armando Empanada
+                </h2>
+                <button onclick="resetBuilder()" class="text-[10px] text-gray-400 hover:text-red-500 font-bold uppercase tracking-wider bg-gray-50 px-2 py-1 rounded">Borrar Selección</button>
             </div>
 
-            <!-- MUNDO SAL -->
-            <section class="mb-8">
-                <h3 class="text-sm font-bold text-gray-500 mb-2 uppercase tracking-wide">Mundo Sal</h3>
+            <!-- SABORES SALADOS -->
+            <section class="mb-10">
+                <h3 class="text-xs font-black text-gray-400 mb-4 uppercase tracking-widest pl-1 border-l-4 border-yellow-400 ml-1"> Mundo Sal</h3>
                 <div id="content-sal" class="grid grid-cols-2 gap-3"></div>
             </section>
 
-            <!-- MUNDO DULCE -->
-            <section class="mb-8">
-                <h3 class="text-sm font-bold text-gray-500 mb-2 uppercase tracking-wide">Mundo Dulce</h3>
+            <!-- SABORES DULCES -->
+            <section class="mb-10">
+                <h3 class="text-xs font-black text-gray-400 mb-4 uppercase tracking-widest pl-1 border-l-4 border-yellow-400 ml-1"> Mundo Dulce</h3>
                 <div id="content-dulce" class="grid grid-cols-2 gap-3"></div>
             </section>
 
-            <!-- SALSAS -->
-            <section class="mb-6 border-t border-dashed border-gray-200 pt-4">
-                <h3 class="text-sm font-bold text-black mb-3 flex items-center gap-2">
-                    <i data-lucide="flame" class="text-red-brand w-4 h-4 fill-current"></i> Salsas (Gratis)
+            <!-- QUESOS -->
+            <section class="mb-10 bg-yellow-50/30 p-4 rounded-xl border border-yellow-100">
+                <h3 class="text-xs font-black text-yellow-700 mb-3 uppercase flex items-center gap-2">
+                    <i data-lucide="cheese" class="w-4 h-4"></i>
+                    ¿Le ponemos Queso?
                 </h3>
-                <div class="grid grid-cols-2 gap-2" id="salsasContainer"></div>
+                <div id="content-quesos" class="grid grid-cols-1 gap-2"></div>
             </section>
 
-            <!-- Notas -->
-            <div class="mb-6">
-                <textarea id="notes" placeholder="Nota para esta empanada (Ej: Doble queso, sin servilleta...)" class="input-light w-full rounded-lg p-3 text-sm h-16 resize-none font-medium"></textarea>
+            <!-- BOTÓN AGREGAR Y SEGUIR -->
+            <div class="sticky bottom-24 bg-white pt-2 pb-4 z-30"> <!-- Botón medio flotante -->
+                <button onclick="addEmpanadaAndReset()" class="btn-add-next w-full py-4 rounded-xl font-black text-lg flex items-center justify-center gap-2 uppercase tracking-wide transform active:scale-95 transition-all shadow-xl">
+                    <i data-lucide="plus-circle" class="w-6 h-6 text-yellow-400"></i>
+                    Agregar y Armar Otra
+                </button>
+                <p class="text-center text-[10px] text-gray-400 mt-2 uppercase tracking-wide">Esta empanada se guardará arriba</p>
             </div>
 
-            <!-- BOTÓN AGREGAR -->
-            <button onclick="addEmpanadaToCart()" class="btn-add w-full py-3 rounded-xl font-black text-lg flex items-center justify-center gap-2 uppercase tracking-wide mb-8">
-                <i data-lucide="plus-circle" class="w-6 h-6"></i>
-                Agregar otra empanada
-            </button>
         </div>
 
-        <!-- RESUMEN DEL PEDIDO (CARRITO) -->
-        <section id="cart-section" class="mb-8 hidden">
-            <h2 class="text-2xl font-black text-black section-title">TU PEDIDO</h2>
-            <div id="cart-container" class="space-y-3 mb-6">
-                <!-- Aquí se agregan las empanadas -->
-            </div>
-            
-            <!-- MEDIOS DE PAGO -->
-            <div class="bg-white p-4 rounded-xl border border-gray-200">
-                <h3 class="text-sm font-bold text-black mb-3 uppercase">¿Cómo vas a pagar?</h3>
-                <div class="grid grid-cols-2 gap-2">
-                    <div onclick="selectPayment('Nequi', this)" class="payment-option p-3 rounded-lg text-center cursor-pointer text-xs font-bold text-gray-500">Nequi</div>
-                    <div onclick="selectPayment('Daviplata', this)" class="payment-option p-3 rounded-lg text-center cursor-pointer text-xs font-bold text-gray-500">Daviplata</div>
-                    <div onclick="selectPayment('Efectivo', this)" class="payment-option p-3 rounded-lg text-center cursor-pointer text-xs font-bold text-gray-500">Efectivo</div>
-                    <div onclick="selectPayment('Tarjeta', this)" class="payment-option p-3 rounded-lg text-center cursor-pointer text-xs font-bold text-gray-500">Tarjeta</div>
-                </div>
+        <!-- MEDIOS DE PAGO -->
+        <section id="payment-section" class="mb-8 hidden border-t border-dashed border-gray-200 pt-8 mt-8">
+            <h3 class="text-xs font-black text-black mb-4 uppercase tracking-widest text-center">Selecciona Medio de Pago</h3>
+            <div class="grid grid-cols-2 gap-3">
+                <div onclick="selectPayment('Nequi', this)" class="payment-option p-4 rounded-xl text-center cursor-pointer text-xs font-bold text-gray-600 select-none hover:bg-gray-50">Nequi</div>
+                <div onclick="selectPayment('Daviplata', this)" class="payment-option p-4 rounded-xl text-center cursor-pointer text-xs font-bold text-gray-600 select-none hover:bg-gray-50">Daviplata</div>
+                <div onclick="selectPayment('Efectivo', this)" class="payment-option p-4 rounded-xl text-center cursor-pointer text-xs font-bold text-gray-600 select-none hover:bg-gray-50">Efectivo</div>
+                <div onclick="selectPayment('Tarjeta', this)" class="payment-option p-4 rounded-xl text-center cursor-pointer text-xs font-bold text-gray-600 select-none hover:bg-gray-50">Tarjeta</div>
             </div>
         </section>
 
     </main>
 
     <!-- Footer Sticky -->
-    <footer class="fixed bottom-0 w-full bg-white border-t border-gray-100 p-4 z-50 shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
-        <div class="max-w-md mx-auto">
-            <!-- Desglose de Precios -->
-            <div class="flex justify-between items-end mb-3 text-xs border-b border-gray-100 pb-2">
-                <div class="text-gray-500">
-                    <p>Empanadas (<span id="count-empanadas">0</span>): <span class="font-bold text-black" id="price-empanadas">$0</span></p>
+    <footer class="fixed bottom-0 w-full z-50 shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
+        <div class="max-w-md mx-auto bg-white p-4 pb-6">
+            <div class="flex justify-between items-end mb-4 text-xs border-b border-gray-100 pb-3">
+                <div class="text-gray-500 space-y-1">
+                    <p>Empanadas (<span id="count-footer" class="font-bold text-black">0</span>): <span class="font-bold text-black" id="subtotal-footer">$0</span></p>
                     <p>Domicilio: <span class="font-bold text-black">$4.000</span></p>
                 </div>
                 <div class="text-right">
-                    <p class="font-black text-2xl text-black" id="total-price">$4.000</p>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-wider mb-1">Total a Pagar</p>
+                    <p class="font-black text-3xl text-black leading-none" id="total-footer">$4.000</p>
                 </div>
             </div>
 
-            <!-- Botón Acción -->
-            <button onclick="sendOrder()" class="btn-order w-full py-4 rounded-xl font-black text-xl flex items-center justify-center gap-3 transform transition-transform uppercase tracking-wider">
+            <button onclick="finishOrder()" class="btn-finish w-full py-4 rounded-xl font-black text-xl flex items-center justify-center gap-3 uppercase tracking-wider transition-transform active:scale-95">
                 <span>ENVIAR PEDIDO</span>
                 <i data-lucide="message-circle" class="w-6 h-6"></i>
             </button>
@@ -280,95 +285,64 @@
     </footer>
 
     <script>
-        // DATOS
-        const ingredientsSal = [
-            { id: 'carne', name: 'Carne', desc: 'Desmechada / Molida' },
-            { id: 'pollo', name: 'Pollo', desc: 'Desmechado' },
-            { id: 'chorizo', name: 'Chorizo', desc: 'Santandereano' },
-            { id: 'queso_sal', name: 'Queso Salado', desc: 'Costeño / Doble Crema' },
-            { id: 'maiz', name: 'Maíz', desc: 'Tiernito' },
-            { id: 'arroz', name: 'Arroz', desc: 'Blanco suelto' },
-            { id: 'papa', name: 'Papa', desc: 'Picada / Fosforito' },
-            { id: 'huevo', name: 'Huevo', desc: 'Cocido picado' }
+        // --- CONFIGURACIÓN DEL MENÚ ---
+        const salados = [
+            { name: 'Chorizo con Hogao', desc: 'Sabor criollo intenso' },
+            { name: 'Carne Molida', desc: 'Con chimichurri de la casa' },
+            { name: 'Pollo Desmechado', desc: 'En mayonesa y cilantro' },
+            { name: 'Papa con Huevo', desc: 'La clásica infaltable' },
+            { name: 'Salchicha', desc: 'Ranchera picadita' },
+            { name: 'Arroz con Cilantro', desc: 'Base suave y aromática' }
         ];
 
-        const ingredientsDulce = [
-            { id: 'alpina', name: 'Arequipe Alpina', desc: 'El original' },
-            { id: 'jumbo', name: 'Choco Jumbo', desc: '1 Chocolatina Personal (17g)' },
-            { id: 'nutella', name: 'Nutella', desc: 'Crema de avellanas' },
-            { id: 'queso_dul', name: 'Queso Doble Crema', desc: 'Para fundir' },
-            { id: 'almendras', name: 'Almendras', desc: 'Laminadas' },
-            { id: 'mani', name: 'Maní', desc: 'Triturado' },
-            { id: 'mora', name: 'Mermelada Mora', desc: 'Dulce de fruta' },
-            { id: 'pina', name: 'Mermelada Piña', desc: 'Calada' },
-            { id: 'maracuya', name: 'Mermelada Maracuyá', desc: 'Ácida y dulce' }
+        const dulces = [
+            { name: 'Arequipe', desc: 'Dulce de leche tradicional' },
+            { name: 'Nutella', desc: 'Crema de avellanas' },
+            { name: 'Chocolatina', desc: 'Trozos de chocolate' },
+            { name: 'Crema Chantilly', desc: 'Suave y dulce' },
+            { name: 'Piña en Almíbar', desc: 'Dulce frutal' }
         ];
 
-        const salsas = [
-            { id: 'aji', name: 'Ají Casero' },
-            { id: 'lecherita', name: 'Lecherita' },
-            { id: 'tartara', name: 'Salsa Tártara' },
-            { id: 'pina_salsa', name: 'Salsa de Piña' }
+        const quesos = [
+            { name: 'Queso Crema', desc: 'Suave y untable' },
+            { name: 'Queso Doble Crema', desc: 'Para fundir (El chicle)' },
+            { name: 'Queso Costeño', desc: 'Saladito y duro' }
         ];
 
-        // ESTADO GLOBAL
-        let cart = []; // Aquí guardamos las empanadas ya listas
-        let currentSelection = []; // Ingredientes actuales
-        let currentSalsas = []; // Salsas actuales
+        // --- ESTADO ---
+        let cart = []; // Array de empanadas
+        let currentIngredients = []; // Ingredientes de la empanada actual
         let selectedPayment = null;
 
-        // RENDERIZADO
-        function renderList(items, containerId) {
+        // --- RENDERIZADO ---
+        function renderGrid(items, containerId) {
             const container = document.getElementById(containerId);
             container.innerHTML = '';
             items.forEach(item => {
                 const card = document.createElement('div');
-                card.className = 'card-ingredient p-4 rounded-xl cursor-pointer group flex flex-col justify-between h-24';
+                card.className = 'card-ingredient p-4 rounded-xl cursor-pointer group flex flex-col justify-between h-24 select-none';
                 card.onclick = () => toggleItem(item.name, card);
-                card.id = `card-${item.name.replace(/\s/g, '')}`; // ID para resetear
+                
                 card.innerHTML = `
                     <div class="flex justify-between items-start">
-                        <h4 class="font-black text-black text-lg leading-none group-hover:text-red-700 transition-colors">${item.name}</h4>
+                        <h4 class="font-bold text-black text-sm leading-tight group-hover:text-red-700 transition-colors">${item.name}</h4>
                         <div class="check-indicator w-6 h-6 rounded-full flex items-center justify-center border transition-all">
-                            <i data-lucide="check" class="w-4 h-4 font-bold"></i>
+                            <i data-lucide="check" class="w-3 h-3 font-bold"></i>
                         </div>
                     </div>
-                    <p class="text-[11px] text-gray-500 font-bold uppercase tracking-wide mt-auto">${item.desc}</p>
+                    <p class="text-[10px] text-gray-400 mt-auto uppercase tracking-wide font-medium">${item.desc}</p>
                 `;
                 container.appendChild(card);
             });
         }
 
-        function renderSalsas() {
-            const container = document.getElementById('salsasContainer');
-            container.innerHTML = '';
-            salsas.forEach(salsa => {
-                const btn = document.createElement('div');
-                btn.className = 'btn-salsa p-3 rounded-lg border-2 border-gray-100 bg-white text-gray-400 text-sm font-bold text-center cursor-pointer hover:border-red-400 transition-colors select-none';
-                btn.innerText = salsa.name;
-                btn.id = `salsa-${salsa.name.replace(/\s/g, '')}`;
-                btn.onclick = function() {
-                    if (currentSalsas.includes(salsa.name)) {
-                        currentSalsas = currentSalsas.filter(s => s !== salsa.name);
-                        this.classList.remove('selected');
-                        this.classList.add('bg-white', 'text-gray-400', 'border-gray-100');
-                    } else {
-                        currentSalsas.push(salsa.name);
-                        this.classList.remove('bg-white', 'text-gray-400', 'border-gray-100');
-                        this.classList.add('selected');
-                    }
-                };
-                container.appendChild(btn);
-            });
-        }
-
-        // LÓGICA DE SELECCIÓN
+        // --- LÓGICA DE SELECCIÓN ---
         function toggleItem(name, element) {
-            if (currentSelection.includes(name)) {
-                currentSelection = currentSelection.filter(i => i !== name);
+            if (currentIngredients.includes(name)) {
+                currentIngredients = currentIngredients.filter(i => i !== name);
                 element.classList.remove('selected');
             } else {
-                currentSelection.push(name);
+                currentIngredients.push(name);
                 element.classList.add('selected');
             }
         }
@@ -379,161 +353,170 @@
             element.classList.add('selected');
         }
 
-        // LÓGICA DEL CARRITO
-        function addEmpanadaToCart() {
-            // Validar que haya ingredientes
-            if (currentSelection.length === 0) {
+        // --- AGREGAR EMPANADA AL CARRITO ---
+        function addEmpanadaAndReset() {
+            // Validación: No vacía sin confirmación
+            if (currentIngredients.length === 0) {
                 if(!confirm("¿Seguro quieres agregar una empanada VACÍA (Solo Masa)?")) return;
             }
 
-            const notes = document.getElementById('notes').value.trim();
+            // 1. Guardar en el carrito
+            cart.push([...currentIngredients]);
 
-            const empanada = {
-                id: cart.length + 1,
-                ingredients: [...currentSelection],
-                salsas: [...currentSalsas],
-                notes: notes
-            };
-
-            cart.push(empanada);
+            // 2. Actualizar UI del Carrito (Parte Superior)
+            const cartContainer = document.getElementById('mini-cart');
+            const cartItems = document.getElementById('mini-cart-items');
             
-            // UI Updates
-            renderCart();
-            resetBuilder();
-            updateTotal();
+            cartContainer.classList.remove('hidden');
             
-            // Scroll al carrito
-            document.getElementById('cart-section').classList.remove('hidden');
-            document.getElementById('cart-section').scrollIntoView({ behavior: 'smooth' });
-        }
+            // Crear el elemento visual de la empanada
+            const newItem = document.createElement('div');
+            // Usamos un ID único temporal basado en el índice
+            const index = cart.length - 1;
+            newItem.id = `cart-item-${index}`;
+            newItem.className = "cart-summary-item flex justify-between items-center p-3 rounded-lg shadow-sm animate-slide-down";
+            newItem.innerHTML = `
+                <div>
+                    <span class="text-red-700 font-black text-sm mr-2 bg-white px-2 py-0.5 rounded border border-gray-200">#${cart.length}</span> 
+                    <span class="text-gray-800 text-sm font-bold">${currentIngredients.length > 0 ? currentIngredients.join(', ') : 'Solo Masa'}</span>
+                </div>
+                <button onclick="removeEmpanada(${index})" class="text-gray-400 hover:text-red-500 p-2 rounded-full hover:bg-white transition-colors">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                </button>
+            `;
+            // Insertar al inicio para que la más reciente se vea primero
+            cartItems.insertBefore(newItem, cartItems.firstChild);
 
-        function renderCart() {
-            const container = document.getElementById('cart-container');
-            container.innerHTML = '';
+            // 3. Mostrar sección de pago si es la primera
+            if (cart.length === 1) {
+                document.getElementById('payment-section').classList.remove('hidden');
+            }
+
+            // 4. Actualizar footer
+            updateFooter();
+
+            // 5. LIMPIEZA Y PREPARACIÓN PARA LA SIGUIENTE
+            currentIngredients = [];
+            document.querySelectorAll('.card-ingredient').forEach(el => el.classList.remove('selected'));
             
-            cart.forEach((item, index) => {
-                const div = document.createElement('div');
-                div.className = 'cart-item bg-white p-4 rounded-lg shadow-sm border border-gray-100 relative';
-                
-                let contentHTML = `
-                    <div class="flex justify-between items-start mb-2">
-                        <h4 class="font-black text-lg">Empanada #${index + 1}</h4>
-                        <span class="text-sm font-bold text-gray-500">$5.000</span>
-                    </div>
-                    <div class="text-sm text-gray-700 mb-2">
-                        ${item.ingredients.length > 0 ? item.ingredients.join(' + ') : 'Solo Masa'}
-                    </div>
-                `;
+            // Actualizar número en el título
+            document.getElementById('empanada-number').innerText = cart.length + 1;
 
-                if(item.salsas.length > 0) {
-                    contentHTML += `<div class="text-xs text-red-500 font-bold mb-1">Salsas: ${item.salsas.join(', ')}</div>`;
-                }
-                
-                if(item.notes) {
-                    contentHTML += `<div class="text-xs text-gray-400 italic">Nota: "${item.notes}"</div>`;
-                }
-
-                // Botón eliminar (opcional, simple)
-                contentHTML += `<button onclick="removeEmpanada(${index})" class="absolute top-2 right-2 text-xs text-red-300 font-bold px-2 py-1">X</button>`;
-
-                div.innerHTML = contentHTML;
-                container.appendChild(div);
-            });
-
-            // Actualizar contador del título
-            document.getElementById('empanada-counter').innerText = cart.length + 1;
+            // Scroll suave hacia arriba para que el usuario sepa que empezó de nuevo
+            setTimeout(() => {
+                const builderZone = document.getElementById('builder-zone');
+                // Calcular posición con offset para el header sticky
+                const y = builderZone.getBoundingClientRect().top + window.scrollY - 140; 
+                window.scrollTo({top: y, behavior: 'smooth'});
+            }, 100);
+            
+            // Re-inicializar iconos para el nuevo elemento del carrito
+            lucide.createIcons();
         }
 
         function removeEmpanada(index) {
+            // Nota: En un sistema simple como este, al borrar un índice,
+            // los índices siguientes se desplazan. Para evitar problemas visuales rápidos,
+            // recargamos toda la lista.
+            
             cart.splice(index, 1);
-            renderCart();
-            updateTotal();
-            if(cart.length === 0) {
-                document.getElementById('cart-section').classList.add('hidden');
-                document.getElementById('empanada-counter').innerText = 1;
+            
+            // Repintar lista visual completa
+            const cartItems = document.getElementById('mini-cart-items');
+            cartItems.innerHTML = '';
+            
+            cart.forEach((ingredients, i) => {
+                const newItem = document.createElement('div');
+                newItem.id = `cart-item-${i}`;
+                newItem.className = "cart-summary-item flex justify-between items-center p-3 rounded-lg shadow-sm mb-2";
+                newItem.innerHTML = `
+                    <div>
+                        <span class="text-red-700 font-black text-sm mr-2 bg-white px-2 py-0.5 rounded border border-gray-200">#${i + 1}</span> 
+                        <span class="text-gray-800 text-sm font-bold">${ingredients.length > 0 ? ingredients.join(', ') : 'Solo Masa'}</span>
+                    </div>
+                    <button onclick="removeEmpanada(${i})" class="text-gray-400 hover:text-red-500 p-2 rounded-full hover:bg-white transition-colors">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
+                `;
+                cartItems.insertBefore(newItem, cartItems.firstChild);
+            });
+            
+            // Re-crear iconos
+            lucide.createIcons();
+
+            document.getElementById('empanada-number').innerText = cart.length + 1;
+            
+            if (cart.length === 0) {
+                document.getElementById('mini-cart').classList.add('hidden');
+                document.getElementById('payment-section').classList.add('hidden');
             }
+            
+            updateFooter();
         }
 
         function resetBuilder() {
-            currentSelection = [];
-            currentSalsas = [];
-            document.getElementById('notes').value = '';
-            
-            // Limpiar UI visualmente
+            currentIngredients = [];
             document.querySelectorAll('.card-ingredient').forEach(el => el.classList.remove('selected'));
-            document.querySelectorAll('.btn-salsa').forEach(el => {
-                el.classList.remove('selected');
-                el.classList.add('bg-white', 'text-gray-400', 'border-gray-100');
-            });
-            
-            // Scroll arriba para armar la siguiente
-            document.getElementById('builder-zone').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function updateTotal() {
-            const priceEmpanadas = cart.length * 5000;
-            const priceDelivery = 4000;
-            const total = priceEmpanadas + priceDelivery;
+        function updateFooter() {
+            const subtotal = cart.length * 5000;
+            const delivery = 4000;
+            const total = subtotal + delivery;
 
-            document.getElementById('count-empanadas').innerText = cart.length;
-            document.getElementById('price-empanadas').innerText = `$${priceEmpanadas.toLocaleString()}`;
-            document.getElementById('total-price').innerText = `$${total.toLocaleString()}`;
+            document.getElementById('count-footer').innerText = cart.length;
+            document.getElementById('subtotal-footer').innerText = `$${subtotal.toLocaleString()}`;
+            document.getElementById('total-footer').innerText = `$${total.toLocaleString()}`;
         }
 
-        // ENVIAR PEDIDO FINAL
-        function sendOrder() {
+        // --- ENVIAR A WHATSAPP ---
+        function finishOrder() {
             const name = document.getElementById('clientName').value.trim();
             const address = document.getElementById('clientAddress').value.trim();
 
             if (!name || !address) {
-                alert("⚠️ ¡Falta tu Nombre y Dirección!");
-                document.getElementById('clientName').focus();
+                alert("⚠️ ¡Faltan tus datos arriba (Nombre y Dirección)!");
                 window.scrollTo(0,0);
                 return;
             }
 
             if (cart.length === 0) {
-                alert("⚠️ ¡El carrito está vacío! Arma al menos una empanada.");
+                alert("⚠️ ¡No has armado ninguna empanada! Agrega al menos una.");
                 return;
             }
 
             if (!selectedPayment) {
-                alert("⚠️ Por favor selecciona un Medio de Pago (al final del pedido).");
-                document.getElementById('cart-section').scrollIntoView();
+                alert("⚠️ Por favor selecciona un Medio de Pago (al final de la página).");
+                window.scrollTo(0, document.body.scrollHeight);
                 return;
             }
 
-            const total = (cart.length * 5000) + 4000;
-
-            let msg = `🔥 *NUEVO PEDIDO BARICHARA* 🔥\n`;
+            let msg = `🔥 *NUEVO PEDIDO RELLENAS* 🔥\n`;
             msg += `👤 *Cliente:* ${name}\n`;
             msg += `📍 *Ubicación:* ${address}\n`;
             msg += `💳 *Pago:* ${selectedPayment}\n\n`;
             
-            msg += `🥟 *PEDIDO (${cart.length} Empanadas):*\n`;
+            msg += `🥟 *DETALLE (${cart.length} Empanadas):*\n`;
             
-            cart.forEach((item, i) => {
-                msg += `\n*#${i+1} EMPANADA:* \n`;
-                if(item.ingredients.length === 0) msg += `⛔ Solo Masa\n`;
-                else item.ingredients.forEach(ing => msg += `✅ ${ing}\n`);
-                
-                if(item.salsas.length > 0) msg += `🍶 Salsas: ${item.salsas.join(', ')}\n`;
-                if(item.notes) msg += `📝 Nota: ${item.notes}\n`;
+            cart.forEach((ingredients, i) => {
+                msg += `\n*#${i+1}:* `;
+                if(ingredients.length === 0) msg += `Solo Masa`;
+                else msg += ingredients.join(' + ');
             });
             
-            msg += `\n--------------------------------\n`;
+            msg += `\n\n--------------------------------\n`;
             msg += `🥟 Subtotal: $${(cart.length * 5000).toLocaleString()}\n`;
             msg += `🛵 Domicilio: $4.000\n`;
-            msg += `💰 *TOTAL A PAGAR: $${total.toLocaleString()}*\n`;
-            
+            msg += `💰 *TOTAL A PAGAR: $${((cart.length * 5000) + 4000).toLocaleString()}*\n`;
+
             const phone = "573003688109";
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        // INIT
-        renderList(ingredientsSal, 'content-sal');
-        renderList(ingredientsDulce, 'content-dulce');
-        renderSalsas();
+        // --- INICIALIZAR ---
+        renderGrid(salados, 'content-sal');
+        renderGrid(dulces, 'content-dulce');
+        renderGrid(quesos, 'content-quesos');
         lucide.createIcons();
     </script>
 </body>
